@@ -9,7 +9,7 @@
     </style>
   </head>
   <body>
-    <canvas id="myCanvas" width="578" height="200"></canvas>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
     <script>
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
@@ -20,7 +20,7 @@
       // stroke color
     
         
-        canvas.addEventListener('click', function() { }, false);
+      //  canvas.addEventListener('click', function() { }, false);
         
         var elem = document.getElementById('myCanvas'),
     elemLeft = elem.offsetLeft,
@@ -28,20 +28,9 @@
     context = elem.getContext('2d'),
     elements = [];
 
+
 // Add event listener for `click` events.
-elem.addEventListener('click', function(event) {
-    var x = event.pageX - elemLeft,
-        y = event.pageY - elemTop;
 
-    // Collision detection between clicked offset and element.
-    elements.forEach(function(element) {
-        if (y > element.top && y < element.top + element.height 
-            && x > element.left && x < element.left + element.width) {
-            alert('clicked an element');
-        }
-    });
-
-}, false);
 
 // Add element.
 elements.push({
@@ -56,6 +45,26 @@ elements.push({
 elements.forEach(function(element) {
     context.fillStyle = element.colour;
     context.fillRect(element.left, element.top, element.width, element.height);
+});
+
+elem.addEventListener('click', function(event) {
+    var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+    console.log(elements)
+
+    // Collision detection between clicked offset and element.
+    elements.forEach(function(element) {
+        if (y > element.top && y < element.top + element.height 
+            && x > element.left && x < element.left + element.width) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            const xpos = Math.random() * 100
+            const ypos = Math.random() * 100
+            element.left = xpos;
+            element.top = ypos;
+            context.fillRect(xpos, ypos, 50, 50 );
+        }
+    });
+
 });
       
     </script>
